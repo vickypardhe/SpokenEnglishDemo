@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Speed Checker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 600px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      resize: none;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button#pause {
+      background-color: #ffcc00;
+    }
+    button#stop {
+      background-color: #ff4444;
+      color: white;
+    }
+    button#reset {
+      background-color: #2196F3;
+      color: white;
+    }
+    .timer {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Typing Speed Checker</h1>
+    <textarea id="typingArea" placeholder="Start typing here..."></textarea>
+    <div class="controls">
+      <button id="pause">Pause</button>
+      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
+    </div>
+    <div class="timer">Time: <span id="timeDisplay">0</span> seconds</div>
+  </div>
+
+  <script>
+    const typingArea = document.getElementById("typingArea");
+    const timeDisplay = document.getElementById("timeDisplay");
+    const pauseBtn = document.getElementById("pause");
+    const stopBtn = document.getElementById("stop");
+    const resetBtn = document.getElementById("reset");
+
+    let timer = null;
+    let seconds = 0;
+    let isRunning = false;
+
+    typingArea.addEventListener("input", () => {
+      if (!isRunning) {
+        isRunning = true;
+        timer = setInterval(() => {
+          seconds++;
+          timeDisplay.textContent = seconds;
+        }, 1000);
+      }
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      clearInterval(timer);
+      isRunning = false;
+    });
+
+    stopBtn.addEventListener("click", () => {
+      clearInterval(timer);
+      isRunning = false;
+    });
+
+    resetBtn.addEventListener("click", () => {
+      clearInterval(timer);
+      isRunning = false;
+      seconds = 0;
+      timeDisplay.textContent = seconds;
+      typingArea.value = "";
+    });
+  </script>
+</body>
+</html>
